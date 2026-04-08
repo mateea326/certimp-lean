@@ -24,17 +24,36 @@ lemma helperEq {i : ℕ} (h : 1 ≤ i) : ((i - 1) * (i - 1)) + (4 * i) = (i + 1)
 open ComEval
 open Hoare Proof
 
-def hoare_asgn_wrong : ∃ a, ¬ ⊨ ⦃ ⊤ ⦄ ⟨{ x = ↑a }⟩ ⦃ x = a ⦄ := by
-  sorry
+def hoare_asgn_wrong : ∃ a,
+ ¬ ⊨ ⦃ ⊤ ⦄ ⟨{ x = ↑a }⟩ ⦃ x = a ⦄ := by
+  exists aexp⟨{x+1}⟩
+  intro h
+  unfold Valid at h
+  simp only [Assertion.top, Assertion.eq, instEvalVar, ValThunk.ofVar, instEvalAExp,
+    ValThunk.ofAExp, AExp.eval, Nat.left_eq_add, one_ne_zero, imp_false, not_true_eq_false] at h
+  specialize h (State.init) (State.init["x" ↦ 1])
+  apply h
+  apply EAsgn
+  · simp [AExp.eval]
+    rfl
+  · simp [State.init, Inhabited.default]
 
-lemma Assertion.impl_self : P ->> P :=
-  sorry
+lemma Assertion.impl_self : P ->> P := by
+verify_assertion
 
-def Hoare.HPreStrengthen : Proof P' c Q → (P ->> P') → Proof P c Q :=
-  sorry
+def Hoare.HPreStrengthen : Proof P' c Q → (P ->> P') → Proof P c Q := by
+  intro h1 h2
+  · apply HConsequence
+    · exact h1
+    · verify_assertion
+    · verify_assertion
 
-def Hoare.HPostWeaken : Proof P c Q' → (Q' ->> Q) → Proof P c Q :=
-  sorry
+def Hoare.HPostWeaken : Proof P c Q' → (Q' ->> Q) → Proof P c Q := by
+  intro h1 h2
+  · apply HConsequence
+    · exact h1
+    · verify_assertion
+    · verify_assertion
 
 def swap {n m : ℕ} :
   ⊢ ⦃ x = n ∧ y = m ⦄
