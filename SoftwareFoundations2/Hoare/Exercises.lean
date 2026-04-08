@@ -112,7 +112,6 @@ def slow_assignment {m : ℕ} :
     ⦃ "y" = m ⦄ := by
   sorry
 
-
 def div_mod_dec {a b : ℕ} :
   ⊢ ⦃ ⊤ ⦄
       ⟨{
@@ -124,10 +123,30 @@ def div_mod_dec {a b : ℕ} :
         od
       }⟩
     ⦃ y = a / b ∧ x = a % b ⦄ := by
-  -- OPTIONAL (PR will pass without it)
   -- You may need the following helper lemmas:
   -- `natSumDiv`, `Nat.mod_eq_of_lt`
-  sorry
+  apply HSeq
+  · apply HSeq
+    · apply HPostWeaken
+      · apply HWhile ⦃a = b * y + x⦄
+        · apply HSeq
+          · apply HAsgn
+          · apply HPreStrengthen
+            · apply HAsgn
+            · verify_assertion
+      · verify_assertion
+        apply natSumDiv at a_2
+        · symm
+          exact a_2
+        · symm
+          exact Nat.mod_eq_of_lt a_2
+    · apply HAsgn
+  · apply HConsequence
+    · apply HAsgn
+    · verify_assertion
+    · verify_assertion
+
+#check Nat.mod_eq_of_lt
 
 def fib : ℕ → ℕ
   | 0 => 1
@@ -163,7 +182,28 @@ def fibonacci {n f : ℕ} :
         od
       }⟩
     ⦃ y = ↑(fib n) ⦄ := by
-  -- OPTIONAL (PR will pass without it)
   -- You may need the following helper lemma:
   -- `fib_eqn`
-  sorry
+  apply HSeq
+  · apply HSeq
+    · apply HSeq
+      · apply HPostWeaken
+        · apply HWhile (Assertion.and (fun σ => σ "x" > 0)
+           (Assertion.and (fun σ => σ "z" = fib (σ "x")) (fun σ => σ "y" = fib (σ "x" - 1))))
+          · apply HPreStrengthen
+            · apply HSeq
+              · apply HSeq
+                · apply HSeq
+                  · apply HAsgn
+                  · apply HAsgn
+                · apply HAsgn
+              · apply HAsgn
+            · verify_assertion
+              apply fib_eqn
+              exact a
+        · verify_assertion
+      · apply HAsgn
+    · apply HAsgn
+  · apply HPreStrengthen
+    · apply HAsgn
+    · verify_assertion
