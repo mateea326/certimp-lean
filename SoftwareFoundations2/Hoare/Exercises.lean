@@ -178,9 +178,9 @@ def div_mod_dec {a b : ℕ} :
             · apply HAsgn
             · verify_assertion
       · verify_assertion
-        apply natSumDiv at a_2
-        · symm
-          exact a_2
+        · apply natSumDiv at a_2
+          · symm
+            exact a_2
         · symm
           exact Nat.mod_eq_of_lt a_2
     · apply HAsgn
@@ -189,14 +189,10 @@ def div_mod_dec {a b : ℕ} :
     · verify_assertion
     · verify_assertion
 
-#check Nat.mod_eq_of_lt
-
 def fib : ℕ → ℕ
   | 0 => 1
   | 1 => 1
   | (n+2) => fib (n+1) + fib n
-
-#eval fib 4
 
 lemma fib_eqn (n : ℕ) (h : n > 0) :
   fib n + fib (n - 1) = fib (1 + n) := by
@@ -211,7 +207,7 @@ lemma fib_eqn (n : ℕ) (h : n > 0) :
       rw [Nat.add_comm 2 m]
       rfl
 
-def fibonacci {n f : ℕ} :
+def fibonacci {n : ℕ} :
   ⊢ ⦃ ⊤ ⦄
       ⟨{
         x = 1;

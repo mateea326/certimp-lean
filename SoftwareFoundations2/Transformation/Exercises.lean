@@ -13,7 +13,6 @@ theorem fold_constants_aexp_sound : AExp.fold_constants.sound := by
           rfl
       · next => rfl
 
-set_option warn.sorry false in
 theorem fold_constants_bexp_sound : BExp.fold_constants.sound := by
   intro bexp σ
   induction bexp with

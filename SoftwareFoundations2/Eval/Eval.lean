@@ -50,6 +50,10 @@ def Com.getOutput (c : Com) (σ : State) : List (Var × Nat) :=
   List.foldr (fun x acc => ⟨x, σ' x⟩ :: acc) [] c.vars
 
 -- An example:
+/--
+  info: [("n", 7), ("sum", 28), ("i", 8)]
+-/
+#guard_msgs in
 #eval ⟨{
   sum = 0;
   i = 0;

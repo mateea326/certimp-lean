@@ -67,7 +67,7 @@ def Completeness :
       apply HSeq 
       · exact c₂Pre
       · apply HPreStrengthen c₁Pre
-        · simp only [Assertion.implies, wlp]
+        · simp only [Assertion.implies]
           intro _ h _ h3 st3 h4
           specialize h st3 (.ESeq h3 h4)
           exact h

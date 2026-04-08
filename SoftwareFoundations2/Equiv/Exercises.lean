@@ -463,3 +463,5 @@ theorem equiv_congr_while {c c' : Com} (h : c ≃ c') :
       apply EWhileFalse
       · exact hfalse
     | _ => aesop
+
+end PgmEquiv
