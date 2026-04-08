@@ -149,8 +149,30 @@ theorem false_if (h : b ≃ bexp⟨{ bfalse }⟩) :
 theorem swap_if_branches :
     ⟨{ if ↑b then ↑c₁ else ↑c₂ endif }⟩ ≃
     ⟨{ if !↑b then ↑c₂ else ↑c₁ endif }⟩ := by
-  -- FILL IN HERE
-  sorry
+  intros p q
+  apply Iff.intro
+  · intro h1
+    cases h1 with
+    | EIfTrue hb hthen =>
+        apply EIfFalse
+        · simp [hb]
+        · exact hthen
+    | EIfFalse hb helse =>
+        apply EIfTrue
+        · simp [hb]
+        · exact helse
+  · intro h2
+    cases h2 with
+    | EIfTrue hb hthen =>
+        apply EIfFalse
+        · simp [BExp.eval] at hb
+          simp [hb]
+        · exact hthen
+    | EIfFalse hb helse =>
+        apply EIfTrue
+        · simp [BExp.eval] at hb
+          simp [hb]
+        · exact helse
 
 theorem true_while
   (h : b ≃ bexp⟨{ btrue }⟩) :
