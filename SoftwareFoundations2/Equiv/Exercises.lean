@@ -237,7 +237,6 @@ theorem seq_assoc : ⟨{ {↑c₁ ; ↑c₂} ; ↑c₃ }⟩ ≃ ⟨{ ↑c₁ ; {
           · exact h2
         · exact h3
 
-@[refl]
 theorem equiv_refl : c ≃ c := by
   intro σ σ'
   exact Iff.rfl

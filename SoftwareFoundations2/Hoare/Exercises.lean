@@ -116,7 +116,21 @@ def subtract_slowly {m p : ℕ} :
           od
       }⟩
     ⦃ z = p - m ⦄ := by
-  sorry
+  apply HSeq
+  · apply HSeq
+    · apply HPostWeaken
+      · apply HWhile ⦃ z - x = p - m ⦄
+        apply HSeq
+        · apply HAsgn
+        apply HPreStrengthen
+        · apply HAsgn
+        verify_assertion
+      verify_assertion
+    apply HAsgn
+  apply HPreStrengthen
+  · apply HAsgn
+  verify_assertion
+
 
 def slow_assignment {m : ℕ} :
   ⊢ ⦃ "x" = m ⦄ -- ignore the apostrophes, fix is TODO for now, but meaning is as usual
@@ -128,7 +142,18 @@ def slow_assignment {m : ℕ} :
           od
       }⟩
     ⦃ "y" = m ⦄ := by
-  sorry
+  apply HSeq
+  · apply HPostWeaken
+    · apply HWhile ⦃ x + y = m ⦄
+      apply HSeq
+      · apply HAsgn
+      apply HPreStrengthen
+      · apply HAsgn
+      verify_assertion
+    verify_assertion
+  apply HPreStrengthen
+  · apply HAsgn
+  verify_assertion
 
 def div_mod_dec {a b : ℕ} :
   ⊢ ⦃ ⊤ ⦄
