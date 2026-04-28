@@ -11,11 +11,11 @@ def identToString : Syntax → String := fun stx => stx.getId.toString
 
 syntax num   : aexp
 syntax ident : aexp
-syntax:40 aexp:40 " + " aexp:(39) : aexp
-syntax:40 aexp:40 " - " aexp:(39) : aexp
-syntax:50 aexp:50 " * " aexp:(49) : aexp
-syntax "(" aexp ")" : aexp
-syntax "↑"term:arg : aexp
+syntax:40 aexp:40 " + " aexp:41 : aexp
+syntax:40 aexp:40 " - " aexp:41 : aexp
+syntax:50 aexp:50 " * " aexp:51 : aexp
+syntax:max "(" aexp ")" : aexp
+syntax:max "↑"term:arg : aexp
 
 syntax "btrue"  : bexp
 syntax "bfalse"  : bexp
