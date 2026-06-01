@@ -1,2 +1,0 @@
-import SoftwareFoundations2.Hoare.Assertion.Assertion
-import SoftwareFoundations2.Hoare.Assertion.Notation

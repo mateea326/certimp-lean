@@ -1,2 +1,0 @@
-import SoftwareFoundations2.Equiv.Def
-import SoftwareFoundations2.Equiv.Exercises
